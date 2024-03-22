@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Exercises.c" />
+    <ClCompile Include="StringEx.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StringEx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

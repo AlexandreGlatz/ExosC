@@ -18,5 +18,13 @@
     <ClCompile Include="Exercises.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="StringEx.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StringEx.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

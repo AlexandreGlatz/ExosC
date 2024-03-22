@@ -11,21 +11,40 @@ typedef struct IntArray
     int iCapacity;
 } IntArray;
 
-void CheckCapacity(IntArray* pIntArray)
+void IsInRange(IntArray* pIntArray, int iIndex)
+{
+    if (iIndex < 0 || iIndex > pIntArray->iSize)
+    {
+        printf("L'index n'est pas dans la liste");
+    }
+}
+
+void ReallocMem(IntArray* pIntArray, int capacity)
+{
+    int* temp = (int*)realloc(pIntArray->pContent, sizeof(int) * capacity);
+
+    if (temp == NULL)
+    {
+        free(pIntArray->pContent);
+        exit(1);
+    }
+
+    pIntArray->pContent = temp;
+}
+
+void UpdateCapacity(IntArray* pIntArray)
 {
     if (pIntArray->iSize >= pIntArray->iCapacity)
     {
         pIntArray->iCapacity *= 2;
-        int* temp = realloc(pIntArray->pContent, sizeof(int) * pIntArray->iCapacity);
-        free(temp);
+        ReallocMem(pIntArray, pIntArray->iCapacity);
     }
-    else if (pIntArray->iSize <= pIntArray->iCapacity/4)
+    else if (pIntArray->iSize < pIntArray->iCapacity/2)
     {
         pIntArray->iCapacity /= 2;
-        int* temp = realloc(pIntArray->pContent, sizeof(int) * pIntArray->iCapacity);
-        pIntArray->pContent = temp;
+        ReallocMem(pIntArray, pIntArray->iCapacity);
     }
-    
+
 }
 
 void Init(IntArray* pIntArray)
@@ -41,24 +60,35 @@ void Add(IntArray* pIntArray, int iValue)
     pIntArray->pContent[pIntArray->iSize] = iValue;
     pIntArray->iSize ++;
 
-    CheckCapacity(pIntArray);
+    UpdateCapacity(pIntArray);
 }
 
 void Insert(IntArray* pIntArray, int iValue, int iIndex)
 {
-    pIntArray->pContent[pIntArray->iSize] = pIntArray->pContent[iIndex];
+    for (int i = pIntArray->iSize; i >= iIndex; i--)
+    {
+        pIntArray->pContent[i] = pIntArray->pContent[i-1];
+    }
     pIntArray->pContent[iIndex] = iValue;
     pIntArray->iSize++;
 
-    CheckCapacity(pIntArray);
+    UpdateCapacity(pIntArray);
 }
 
 void Remove(IntArray* pIntArray, int iIndex)
 {
-    pIntArray->pContent[iIndex] = pIntArray->pContent[pIntArray->iSize-1];
+    for (int i = iIndex; i < pIntArray->iSize-1; i++)
+    {
+        pIntArray->pContent[i] = pIntArray->pContent[i + 1];
+    }
     pIntArray->iSize--;
 
-    CheckCapacity(pIntArray);
+    UpdateCapacity(pIntArray);
+}
+
+void Get(IntArray* pIntArray, int iIndex)
+{
+    printf("%d", pIntArray->pContent[iIndex]);
 }
 
 void Print(IntArray* pIntArray)
@@ -84,11 +114,11 @@ void TestBattery(IntArray* pIntArray)
         Add(pIntArray, i);
     }
     Print(pIntArray);
+    Get(pIntArray, 5);
     Insert(pIntArray, 40, 5);
     Print(pIntArray);
     Remove(pIntArray, 4);
     Print(pIntArray);
-
 }
 
 int main()
