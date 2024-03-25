@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
+#include "StringEx.h"
 
 typedef struct IntArray
 {
@@ -121,11 +122,60 @@ void TestBattery(IntArray* pIntArray)
     Print(pIntArray);
 }
 
+StringTests()
+{
+    String str1 = Create("Bonjour");
+    PrintString(&str1);
+
+    String str2 = Create("Au revoir");
+    PrintString(&str2);
+
+    String concatenated = Concatenate1(&str1, &str2);
+    PrintString(&concatenated);
+
+    String concatenated2 = Concatenate2("hello", "olleh");
+    PrintString(&concatenated2);
+
+    String subString = SubString(&str1, 2, 5);
+    PrintString(&subString);
+
+    String str3 = InsertString(&str1, &str2, 2);
+    PrintString(&str3);
+
+    if (AreEquals(&str1, &str2))
+    {
+        printf("oui\n");
+    }
+    else
+    {
+        printf("non\n");
+    }
+
+    String str4 = Create("1234");
+    PrintString(&str4);
+    int result;
+    if (TryCastToInt(&str4, &result))
+    {
+        printf("%d\n", result);
+
+    }
+
+    int result2;
+    if (TryCastToInt(&str1, &result2))
+    {
+        printf("%d\n", result2);
+        free(result);
+    }
+
+
+}
+
 int main()
 {
     IntArray oArray;
     Init(&oArray);
     TestBattery(&oArray);
+    StringTests();
     Destroy(&oArray);
 
     return 0;
