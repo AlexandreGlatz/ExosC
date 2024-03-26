@@ -3,6 +3,7 @@
 #include <time.h>
 #include <ctype.h>
 #include "StringEx.h"
+#include "Liste.h"
 
 typedef struct IntArray
 {
@@ -171,13 +172,29 @@ StringTests()
     Destroy(&str1);
 
 }
+void ListTests() {
+    List oList;
+    InitList(&oList);
+
+    AddLast(&oList, 1);
+    AddLast(&oList, 2);
+    AddLast(&oList, 3);
+
+    AddFirst(&oList, 0);
+
+    DestroyList(&oList);
+}
 
 int main()
 {
     IntArray oArray;
     Init(&oArray);
+
     TestBattery(&oArray);
+
     StringTests();
+
+    ListTests();
     Destroy(&oArray);
 
     return 0;

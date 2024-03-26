@@ -21,9 +21,15 @@
     <ClCompile Include="StringEx.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Liste.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringEx.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Liste.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

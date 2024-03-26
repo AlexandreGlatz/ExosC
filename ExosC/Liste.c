@@ -1,34 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Liste.h"
 
-typedef struct Node
+void AddNode(Node* pNode, int iValue)
 {
-    Node* pNext;
-    Node* pPrevious;
+    pNode->iValue = iValue;
+    pNode->pNext->iValue = NULL;
+}
 
-    int iValue;
-} Node;
-
-typedef struct List
+void InitList(List* pList)
 {
-    Node* pFirst;
-
-    int iCount;
-} List;
-
-void Init(List* pList)
-{
-    //
+    pList->iCount = 0;
+    pList->pFirst->iValue = NULL;
+    pList->pFirst->pNext->iValue = NULL;
 }
 
 void AddFirst(List* pList, int iValue)
 {
-    //
+    AddNode(pList->pFirst->pNext, pList->pFirst->iValue);
+    pList->pFirst->iValue = iValue;
+    pList->iCount++;
 }
 
 void AddLast(List* pList, int iValue)
 {
-    //
+    
 }
 
 void AddAfterNode(List* pList, Node* pNode, int iValue)
@@ -56,26 +52,13 @@ Node* GetNode(List* pList, int iIndex)
     //
 }
 
-void Print(List* pList)
+void PrintList(List* pList)
 {
     //
 }
 
-void Destroy(List* pList)
+void DestroyList(List* pList)
 {
     //
 }
 
-int main()
-{
-    List oList;
-    init(&oList);
-
-    AddLast(&oList, 1);
-    AddLast(&oList, 2);
-    AddLast(&oList, 3);
-
-    AddFirst(&oList, 0);
-
-    Destroy(&oList);
-}
