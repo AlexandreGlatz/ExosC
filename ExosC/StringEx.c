@@ -118,29 +118,42 @@ int AreEquals(const String* pStr1, const String* pStr2)
 	return pStr1->pContent == pStr2->pContent;
 }
 
-int TryCastToInt(const String* pStr, int* pResult)
+int IsDigit(const String* pStr, int iIndex)
 {
-	*pResult = (int*)malloc(sizeof(int) * pStr->iLength);
+	char c = pStr->pContent[iIndex];
 
-	char tabChar[] = "0123456789";
+	return c >= '0' && c <= '9';
+}
 
+int IsInt(const String* pStr)
+{
 	for (int i = 0; i < pStr->iLength; i++)
 	{
-		for (int j = 0; j < 9; j++)
+		if (!IsDigit(pStr, i))
 		{
-			if (pStr->pContent[i] == tabChar[j])
-			{
-				pResult[i] = j;
-			}
-			else if (pStr->pContent[i]!= tabChar[j] &&  j>9)
-			{
-				printf("cast failed\n");
-				return 0;
-			}
-			
+			return 0;
 		}
 	}
 	return 1;
+}
+
+int TryCastToInt(const String* pStr, int* pResult)
+{
+	if (!IsInt(pStr))
+	{
+		printf("cast failed");
+		return 0;
+	}
+
+	int rank = 1;
+	for (int i = pStr->iLength - 1; i >= 0; i--)
+	{
+		*pResult += (pStr->pContent[i] - '0') * rank;
+		rank *= 10;
+	}
+
+	return 1;
+	
 }
 
 void DestroyString(String* pStr)

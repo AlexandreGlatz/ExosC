@@ -150,23 +150,25 @@ StringTests()
     {
         printf("non\n");
     }
-
+    
     String str4 = Create("1234");
-    PrintString(&str4);
-    int result;
+    int result = 0;
     if (TryCastToInt(&str4, &result))
     {
         printf("%d\n", result);
 
     }
 
-    int result2;
+    int result2 = 0;
     if (TryCastToInt(&str1, &result2))
     {
         printf("%d\n", result2);
-        free(result);
     }
 
+    Destroy(&str1);
+    Destroy(&str1);
+    Destroy(&str1);
+    Destroy(&str1);
 
 }
 
